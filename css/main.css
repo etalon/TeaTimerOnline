@@ -1,0 +1,10 @@
+html, body{
+    height: 100%;
+}
+
+.counter {
+    font-size:14em;
+    font-family: monospace;
+    font-weight: bold;
+    text-align:center;
+    }
