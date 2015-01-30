@@ -1,82 +1,41 @@
-<!doctype html>
-<html lang="DE">
-
-<head>
-
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="js/jquery_ui/jquery-ui.css">
-    <link rel="stylesheet" href="css/main.css">
-    <title>TeaTimer</title>
-
-</head>
-
-<body class="ui-widget">
-
-
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jquery_ui/jquery_ui.js"></script>
-
 <?php
+/**
+ * Requests collector.
+ *
+ *  This file collects requests if:
+ *	- no mod_rewrite is available or .htaccess files are not supported
+ *  - requires App.baseUrl to be uncommented in app/Config/core.php
+ *	- app/webroot is not set as a document root.
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 
-require_once("Models\TeaTypeModel.php");
-require_once("Classes\MySqlDb.php");
-require_once("Classes\TeaType.php");
+/**
+ *  Get CakePHP's root directory
+ */
+define('APP_DIR', 'app');
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT', dirname(__FILE__));
+define('WEBROOT_DIR', 'webroot');
+define('WWW_ROOT', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
 
-$ttm = new TeaTypeModel();
-
-// $teatype = new TeaType(0, "Schwarzer Tee", 180);
-// $ttm->AddNewEntry($teatype);
-
-foreach ($ttm->GetVisibleTeaTypes() as $teatype) {
-
-    // echo $teatype->Id() . "|" . $teatype->Name() . "<br/>";
-
+/**
+ * This only needs to be changed if the "cake" directory is located
+ * outside of the distributed structure.
+ * Full path to the directory containing "cake". Do not add trailing directory separator
+ */
+if (!defined('CAKE_CORE_INCLUDE_PATH')) {
+	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
 }
 
-
-
-?>
-
-
-<div style="width: 20%; float:left; height:100%; margin:2%">
-
-    <div style="height:50%; vertical-align:top">
-        <p class="ui-widget-header">Tee-Sorten</p>
-    </div>
-
-    <div style="height:50%; vertical-align:bottom">
-        <p class="ui-widget-header">Neue Tee-Sorte</p>
-    </div>
-
-</div>
-
-<div style="width: 45%; float:left; height:100%; margin:2%">
-
-    <div style="height:10%; vertical-align:top">
-        <p class="ui-widget-header">Manueller Start</p>
-
-        <form id='manualstart' action='index.php'>
-
-            <input type="text" name="steep_time_in_minutes" value="3" maxlength="3" size="5"> Minuten
-            <input type="submit" value="Starten">
-
-        </form>
-
-    </div>
-
-    <div style="height:80%; vertical-align: top">
-        <p class="ui-widget-header">Counter</p>
-        <p id="counter" class="counter">00:00</p>
-
-    </div>
-
-</div>
-
-<div style="width: 20%; float:left; height:100%; margin:2%">
-
-    <p class="ui-widget-header"> Statistik</p>
-
-</div>
-
-</body>
-</html>
+require APP_DIR . DS . WEBROOT_DIR . DS . 'index.php';
